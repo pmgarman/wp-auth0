@@ -21,17 +21,18 @@ trait UsersHelper {
 	/**
 	 * Create a new User.
 	 *
-	 * @param null $email - Email to use, default is used if none provided.
+	 * @param null|string $email - Email to use, default is used if empty.
+	 * @param null|string $password - Password to use, default is used if empty.
 	 *
 	 * @return null|object|stdClass
 	 */
-	public function createUser( $email = null ) {
+	public function createUser( $email = null, $password = null ) {
 		$username = 'test_new_user' . uniqid();
 		$user     = wp_insert_user(
 			[
 				'user_login' => $username,
 				'user_email' => $email ? $email : $username . '@example.com',
-				'user_pass'  => uniqid(),
+				'user_pass'  => $password ? $password : uniqid(),
 			]
 		);
 
